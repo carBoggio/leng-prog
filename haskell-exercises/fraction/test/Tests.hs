@@ -8,8 +8,8 @@ import Fraction (Fraction, add, sub, mul, divide, hcf)
 main :: IO ()
 
 -- Comment this line and uncomment the line below to run the tests doing simplification
-main = hspec $ test id
--- main = hspec $ test simplify
+-- main = hspec $ test id
+main = hspec $ test simplify
 
 test :: (Fraction -> Fraction) -> Spec
 test s = do 
