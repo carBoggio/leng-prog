@@ -72,25 +72,20 @@ charToNumber :: Char -> Int
 charToNumber c = digitToInt c
 
 binaryAdd :: String -> String -> String
-binaryAdd str1 str2 =
-  let (n1, n2) = sameLength str1 str2
-      (carry, resp) = foldl (\(acc, res) (x, y) ->
-        let suma = (charToNumber x) + (charToNumber y) + acc
-        in if suma == 0
-           then (0, '0' : res)
-           else if suma == 1
-                then (0, '1' : res)
-                else if suma == 2
-                     then (1, '0' : res)
-                     else (1, '1' : res)) (0, "") (zip n1 n2)
-  in if carry == 1
-     then '1' : resp
-     else resp
+binaryAdd a b
+    | null a && null b = "0"
+binaryAdd xs ys = reverse (addBits (reverse xs) (reverse ys) 0)
+  where
+    addBits [] [] 0 = []
+    addBits [] [] carry = if carry == 1 then "1" else []
+    addBits (x:xs') [] carry = addBits (x:xs') ['0'] carry
+    addBits [] (y:ys') carry = addBits ['0'] (y:ys') carry
+    addBits (x:xs') (y:ys') carry =
+      let sumBit = (bitValue x) + (bitValue y) + carry
+          resultBit = if sumBit `mod` 2 == 0 then '0' else '1'
+          newCarry = if sumBit > 1 then 1 else 0
+      in resultBit : addBits xs' ys' newCarry
 
-
-sameLength :: String -> String -> (String, String)
-sameLength str1 str2
-  | (length str1) > (length str2) = sameLength str1 ("0" ++ str2)
-  | (length str1) < (length str2) = sameLength ("0" ++ str1) str2
-  | otherwise = (str1, str2)
-
+    bitValue '0' = 0
+    bitValue '1' = 1
+    bitValue _ = error "Invalid binary digit"
