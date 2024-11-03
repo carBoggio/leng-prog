@@ -1,4 +1,4 @@
-module Lists (firsts, member, union, intersection, difference,
+module Lists (member, union, intersection, difference,
               insert, insertionSort,
               binaryToDecimal, toDecimal, toDec, decimal,
               binaryAdd) where
