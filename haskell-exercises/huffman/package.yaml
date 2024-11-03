@@ -9,6 +9,7 @@ extra-source-files:
 dependencies:
   - base
   - containers
+  - pqueue >= 1.4.1.4
 
 executables:
   huffman:
@@ -18,7 +19,10 @@ executables:
       - huffman
 
 library:
-  exposed-modules: Huffman
+  exposed-modules:
+    - Huffman
+    - Trie
+    - Count
   source-dirs: src
   ghc-options: -Wall -Wno-type-defaults
 
@@ -29,4 +33,3 @@ tests:
     dependencies:
       - huffman
       - hspec
-
